@@ -1,0 +1,26 @@
+{
+    "id": "9240E9AB",
+    "path": "~/GitHub/acui_growth_models/acui_models/model_fit_parameters.R",
+    "project_path": "model_fit_parameters.R",
+    "type": "r_source",
+    "hash": "3815298848",
+    "contents": "",
+    "dirty": false,
+    "created": 1710864640146.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "97,44",
+        "scrollLine": "86"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1710864588,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1710864588,
+    "read_only": false,
+    "read_only_alternatives": []
+}

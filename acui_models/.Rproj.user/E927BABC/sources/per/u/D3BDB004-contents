@@ -1,0 +1,56 @@
+dat <- read.csv('C:/Users/jflores/Documents/JORGE/colaboradores/FlorOrtega/ABS.csv', sep = ';')
+dat <- dat[complete.cases(dat),] 
+dat$fecha <- as.POSIXct(dat$fecha, format="%d/%m/%Y")
+# dat <- subset(dat, dat$Repeticion == 'ABS1')
+
+# colnames(dat) <- c('x', 'fecha', 'y', 'Repeticion')
+colnames(dat) <- c('Days', 'fecha', 'Weigth', 'Repeticion')
+
+serie1 <- subset(dat, dat$Repeticion == 'ABS1')
+weight <- serie1$Weigth
+days <- serie1$Days
+n <- seq(0,540,0.1)
+
+# LOGISTIC MODEL (Ansah - Frimpong 2015)
+logistic_model <- function(Wmax, a, k, weight){
+  # Wmax    = maximum weight
+  # a       = initial rate of growth
+  # k       = rate of decrease of growth with time
+  # weight  = time serie of weight values (gr/30days)
+  
+  W <- numeric(length(weight))
+  for(t in seq_along(weight)){
+    W[t] <- Wmax/(1+exp(a-k*t))
+  }
+  return(W)
+}
+
+# COST FUNCTION FOR LOGISTIC MODEL
+logistic_cost <- function(par){
+  # par     = input parameters of the model
+  Wmax  = par[1]
+  a     = par[2]
+  k     = par[3]
+  
+  sim = logistic_model(Wmax = Wmax, a = a, k = k, weight = weight)
+  RSS = sum((sim-weight)^2, na.rm=TRUE)
+  return(RSS)
+}
+
+# Logistic Model
+logi_par = c(Wmax = weight[length(weight)], a = 0.5, k = 0.3)
+# Los parámetros de entrada los puse forma abritraria. Podemos usar los de un paper y mejoraría el ajuste
+logi_cos = logistic_cost(par=logi_par)
+logi_opt = optim(par = logi_par, fn = logistic_cost) # usando algoritmo de OPTIMIZACION de R-base
+# logi_sim = logistic_model(Wmax = logi_opt$par[1], a = logi_opt$par[2], k = logi_opt$par[3], weight = weight)
+logi_sim = logistic_model(Wmax = logi_opt$par[1], a = logi_opt$par[2], k = logi_opt$par[3], weight = weight)
+logi_R2  = 1 - (sum((weight-logi_sim)^2)/sum((weight-mean(weight))^2))
+k = length(logi_opt$par)
+# logi_AIC = AIC(object = logi_sim, obs = weight, sim = logi_sim, k = k)
+
+par(mar = c(3.5,3.5,1,1))
+plot_serie1 <- plot(serie1$Days,serie1$Weigth,
+                    xlab = '', ylab = '')
+# lines(serie1$Days, logi_sim, col = 'blue')
+lines(weight, logi_sim, col = 'blue')
+

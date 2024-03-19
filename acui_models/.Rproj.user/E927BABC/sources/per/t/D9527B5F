@@ -1,0 +1,26 @@
+{
+    "id": "D9527B5F",
+    "path": "~/GitHub/acui_growth_models/acui_models/source/cost_functions.R",
+    "project_path": "source/cost_functions.R",
+    "type": "r_source",
+    "hash": "607531794",
+    "contents": "",
+    "dirty": false,
+    "created": 1710864874295.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "11,0",
+        "scrollLine": "8"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1515823561,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1515823561,
+    "read_only": false,
+    "read_only_alternatives": []
+}
